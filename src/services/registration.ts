@@ -17,12 +17,14 @@ function protoRegistration(registry) {
       const config = resolve('config');
       const path = config.protoServicesPaths.engineService;
 
-      return businessProtoPackageSelector(
+      const clientType = businessProtoPackageSelector(
         grpc.load(`${config.protoPath}/${path}`),
         protoPackage => protoPackage.engine
-      ).EngineService.service;
+      ).EngineService;
+
+      return new clientType();
     },
-    name: 'engineService'
+    name: 'engineClient'
   });
   registry({
     factory: resolve => {

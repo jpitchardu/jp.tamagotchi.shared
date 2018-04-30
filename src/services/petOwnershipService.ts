@@ -1,5 +1,1 @@
-export class PetOwnershipService {
-
-  
-
-}
+export class PetOwnershipService {}
