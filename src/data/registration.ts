@@ -1,10 +1,15 @@
 import * as grpc from 'grpc';
 
+import { PetDataService } from './petDataService';
+import { PetOwnershipDataService } from './petOwnershipDataService';
+import { TransactionDataService } from './transactionDataService';
+import { UserDataService } from './userDataService';
+
 function dataProtoPackageSelector(load, selector) {
   return selector(load.jp.tamagotchi.data.services);
 }
 
-export function registration(registry) {
+function protoRegistration(registry) {
   registry({
     factory: resolve => {
       const config = resolve('config');
@@ -61,4 +66,16 @@ export function registration(registry) {
     },
     name: 'userDataService'
   });
+}
+
+function serviceRegistration(registry) {
+  registry({ type: PetDataService });
+  registry({ type: PetOwnershipDataService });
+  registry({ type: TransactionDataService });
+  registry({ type: UserDataService });
+}
+
+export function registration(registry) {
+  protoRegistration(registry);
+  serviceRegistration(registry);
 }

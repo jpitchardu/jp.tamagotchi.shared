@@ -1,10 +1,17 @@
 import * as grpc from 'grpc';
 
+import * as fs from 'fs';
+
+import { PetOwnershipService } from './petOwnershipService';
+import { PetService } from './petService';
+import { TransactionService } from './transactionService';
+import { UserService } from './userService';
+
 function businessProtoPackageSelector(load, selector) {
   return selector(load.jp.tamagotchi.business.shared.services);
 }
 
-export function registration(registry) {
+function protoRegistration(registry) {
   registry({
     factory: resolve => {
       const config = resolve('config');
@@ -65,4 +72,16 @@ export function registration(registry) {
     },
     name: 'sharedUserService'
   });
+}
+
+function serviceRegistration(registry) {
+  registry({ type: PetService });
+  registry({ type: PetOwnershipService });
+  registry({ type: TransactionService });
+  registry({ type: UserService });
+}
+
+export function registration(registry) {
+  protoRegistration(registry);
+  serviceRegistration(registry);
 }
