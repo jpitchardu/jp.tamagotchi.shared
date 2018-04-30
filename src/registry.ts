@@ -131,6 +131,7 @@ function dataServicesRegistration(registry) {
     name: 'userDataService'
   });
 }
+
 export function registration(env) {
   return registry => {
     registry({ name: 'config', value: require(`config/config.${env}`) });
