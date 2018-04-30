@@ -13,58 +13,83 @@ function protoRegistration(registry) {
   registry({
     factory: resolve => {
       const config = resolve('config');
+
+      const dataServer = config.dataServer;
       const path = config.dataProtoServicesPaths.petDataService;
 
-      return dataProtoPackageSelector(
+      const clientType = dataProtoPackageSelector(
         grpc.load(
           `${config.protoPath}/${config.dataProtoServicesPaths.petDataService}`
         ),
         protoPackage => protoPackage.pet
-      ).PetDataService.service;
+      ).PetDataService;
+
+      return new clientType(
+        `${dataServer.ip}:${dataServer.port}`,
+        grpc.credentials.createInsecure()
+      );
     },
-    name: 'petDataService'
+    name: 'petDataClient'
   });
   registry({
     factory: resolve => {
       const config = resolve('config');
+      const dataServer = config.dataServer;
       const path = config.dataProtoServicesPaths.petDataService;
 
-      return dataProtoPackageSelector(
+      const clientType = dataProtoPackageSelector(
         grpc.load(
           `${config.protoPath}/${config.dataProtoServicesPaths.petDataService}`
         ),
         protoPackage => protoPackage.pet
-      ).PetDataService.service;
+      ).PetDataService;
+
+      return new clientType(
+        `${dataServer.ip}:${dataServer.port}`,
+        grpc.credentials.createInsecure()
+      );
     },
-    name: 'petOwnershipDataService'
+    name: 'petOwnershipDataClient'
   });
   registry({
     factory: resolve => {
       const config = resolve('config');
+      const dataServer = config.dataServer;
       const path = config.dataProtoServicesPaths.petDataService;
 
-      return dataProtoPackageSelector(
+      const clientType = dataProtoPackageSelector(
         grpc.load(
           `${config.protoPath}/${config.dataProtoServicesPaths.petDataService}`
         ),
         protoPackage => protoPackage.pet
-      ).PetDataService.service;
+      ).PetDataService;
+
+      return new clientType(
+        `${dataServer.ip}:${dataServer.port}`,
+        grpc.credentials.createInsecure()
+      );
     },
-    name: 'transactionDataService'
+    name: 'transactionDataClient'
   });
   registry({
     factory: resolve => {
       const config = resolve('config');
+      const dataServer = config.dataServer;
       const path = config.dataProtoServicesPaths.petDataService;
 
-      return dataProtoPackageSelector(
+      const clientType = dataProtoPackageSelector(
         grpc.load(
           `${config.protoPath}/${config.dataProtoServicesPaths.petDataService}`
         ),
         protoPackage => protoPackage.pet
-      ).PetDataService.service;
+      ).PetDataService;
+
+      return new clientType(
+        `${dataServer.ip}:${dataServer.port}`,
+        grpc.credentials.createInsecure()
+      );
     },
-    name: 'userDataService'
+    name: 'userDataClient'
   });
 }
 
