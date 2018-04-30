@@ -1,0 +1,6 @@
+[submodule "proto/business"]
+	path = proto/business
+	url = https://github.com/pichardoJ/jp.tamagotchi.proto.business.git
+[submodule "proto/data"]
+	path = proto/data
+	url = https://github.com/pichardoJ/jp.tamagotchi.proto.data.git
