@@ -1,51 +1,31 @@
 import { promisify } from '../utils/index';
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './dataContracts';
 
 export class TransactionDataService {
-  constructor(private readonly transactionDataClient) {
-    this.transactionDataClient.saveTransaction = promisify(
-      this.transactionDataClient.saveTransaction
-    );
-    this.transactionDataClient.getTransactions = promisify(
-      this.transactionDataClient.getTransactions
-    );
-  }
+  constructor(private readonly transactionDataClient) {}
 
   public saveTransaction(
-    request: ISaveTransactionRequest
-  ): Promise<ISaveTransactionResponse> {
+    request: ISaveRequest<ITransactionModel>
+  ): Promise<ISaveResponse<ITransactionModel>> {
     return this.transactionDataClient
       .saveTransaction(request)
-      .then(res => res as ISaveTransactionResponse);
+      .then(res => res as ISaveResponse<ITransactionModel>);
   }
 
   public getTransactions(
-    request: IGetTransactionsRequest
-  ): Promise<IGetTransactionsResponse> {
+    request: IGetRequest<ITransactionModel>
+  ): Promise<IGetResponse<ITransactionModel>> {
     return this.transactionDataClient
       .getTransactions(request)
-      .then(res => res as IGetTransactionsResponse);
+      .then(res => res as IGetResponse<ITransactionModel>);
   }
 }
 
-export interface ISaveTransactionRequest {
-  Transaction: ITransactionModel;
-}
-
-export interface ISaveTransactionResponse {
-  successful: boolean;
-  message: string;
-  Transaction: ITransactionModel;
-}
-
-export interface IGetTransactionsRequest {
-  size: number;
-  example: ITransactionModel;
-}
-
-export interface IGetTransactionsResponse {
-  Transactions: ITransactionModel[];
-}
-
 export interface ITransactionModel {
-  id: number;
+  id?: number;
 }

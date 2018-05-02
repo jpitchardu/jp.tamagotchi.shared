@@ -1,45 +1,33 @@
 import { promisify } from '../utils/index';
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './dataContracts';
 
 export class UserDataService {
-  constructor(private readonly userDataClient) {
-    this.userDataClient.saveUser = promisify(this.userDataClient.saveUser);
-    this.userDataClient.getUsers = promisify(this.userDataClient.getUsers);
-  }
+  constructor(private readonly userDataClient) {}
 
-  public saveUser(request: ISaveUserRequest): Promise<ISaveUserResponse> {
+  public saveUser(
+    request: ISaveRequest<IUserModel>
+  ): Promise<ISaveResponse<IUserModel>> {
     return this.userDataClient
       .saveUser(request)
-      .then(res => res as ISaveUserResponse);
+      .then(res => res as ISaveResponse<IUserModel>);
   }
 
-  public getUsers(request: IGetUsersRequest): Promise<IGetUsersResponse> {
+  public getUsers(
+    request: IGetRequest<IUserModel>
+  ): Promise<IGetResponse<IUserModel>> {
     return this.userDataClient
       .getUsers(request)
-      .then(res => res as IGetUsersResponse);
+      .then(res => res as IGetResponse<IUserModel>);
   }
-}
-
-export interface ISaveUserRequest {
-  User: IUserModel;
-}
-
-export interface ISaveUserResponse {
-  successful: boolean;
-  message: string;
-  User: IUserModel;
-}
-
-export interface IGetUsersRequest {
-  size: number;
-  example: IUserModel;
-}
-
-export interface IGetUsersResponse {
-  Users: IUserModel[];
 }
 
 export interface IUserModel {
-  id: number;
+  id?: number;
   userName: string;
   password: string;
   email: string;

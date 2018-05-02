@@ -1,45 +1,34 @@
 import { promisify } from '../utils/index';
 
-export class PetDataService {
-  constructor(private readonly petDataClient) {
-    this.petDataClient.savePet = promisify(this.petDataClient.savePet);
-    this.petDataClient.getPets = promisify(this.petDataClient.getPets);
-  }
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './dataContracts';
 
-  public savePet(request: ISavePetRequest): Promise<ISavePetResponse> {
+export class PetDataService {
+  constructor(private readonly petDataClient) {}
+
+  public savePet(
+    request: ISaveRequest<IPetModel>
+  ): Promise<ISaveResponse<IPetModel>> {
     return this.petDataClient
       .savePet(request)
-      .then(res => res as ISavePetResponse);
+      .then(res => res as ISaveResponse<IPetModel>);
   }
 
-  public getPets(request: IGetPetsRequest): Promise<IGetPetsResponse> {
+  public getPets(
+    request: IGetRequest<IPetModel>
+  ): Promise<IGetResponse<IPetModel>> {
     return this.petDataClient
       .getPets(request)
-      .then(res => res as IGetPetsResponse);
+      .then(res => res as IGetResponse<IPetModel>);
   }
-}
-
-export interface ISavePetRequest {
-  pet: IPetModel;
-}
-
-export interface ISavePetResponse {
-  successful: boolean;
-  message: string;
-  pet: IPetModel;
-}
-
-export interface IGetPetsRequest {
-  size: number;
-  example: IPetModel;
-}
-
-export interface IGetPetsResponse {
-  pets: IPetModel[];
 }
 
 export interface IPetModel {
-  id: number;
+  id?: number;
   image: string;
   name: string;
   description: string;

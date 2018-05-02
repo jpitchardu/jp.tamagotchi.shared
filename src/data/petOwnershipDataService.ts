@@ -1,51 +1,31 @@
 import { promisify } from '../utils/index';
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './dataContracts';
 
 export class PetOwnershipDataService {
-  constructor(private readonly petOwnershipDataClient) {
-    this.petOwnershipDataClient.savePetOwnership = promisify(
-      this.petOwnershipDataClient.savePetOwnership
-    );
-    this.petOwnershipDataClient.getPetOwnerships = promisify(
-      this.petOwnershipDataClient.getPetOwnerships
-    );
-  }
+  constructor(private readonly petOwnershipDataClient) {}
 
   public savePetOwnership(
-    request: ISavePetOwnershipRequest
-  ): Promise<ISavePetOwnershipResponse> {
+    request: ISaveRequest<IPetOwnershipModel>
+  ): Promise<ISaveResponse<IPetOwnershipModel>> {
     return this.petOwnershipDataClient
       .savePetOwnership(request)
-      .then(res => res as ISavePetOwnershipResponse);
+      .then(res => res as ISaveResponse<IPetOwnershipModel>);
   }
 
   public getPetOwnerships(
-    request: IGetPetOwnershipsRequest
-  ): Promise<IGetPetOwnershipsResponse> {
+    request: IGetRequest<IPetOwnershipModel>
+  ): Promise<IGetResponse<IPetOwnershipModel>> {
     return this.petOwnershipDataClient
       .getPetOwnerships(request)
-      .then(res => res as IGetPetOwnershipsResponse);
+      .then(res => res as IGetResponse<IPetOwnershipModel>);
   }
 }
 
-export interface ISavePetOwnershipRequest {
-  PetOwnership: IPetOwnershipModel;
-}
-
-export interface ISavePetOwnershipResponse {
-  successful: boolean;
-  message: string;
-  PetOwnership: IPetOwnershipModel;
-}
-
-export interface IGetPetOwnershipsRequest {
-  size: number;
-  example: IPetOwnershipModel;
-}
-
-export interface IGetPetOwnershipsResponse {
-  PetOwnerships: IPetOwnershipModel[];
-}
-
 export interface IPetOwnershipModel {
-  id: number;
+  id?: number;
 }
