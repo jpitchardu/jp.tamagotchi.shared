@@ -1,4 +1,4 @@
-import { TransactionDataService } from '../data/index';
+import { TransactionDataService } from '@data/index';
 
 import {
   IGetRequest,

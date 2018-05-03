@@ -4,24 +4,24 @@ import {
   IGetDataResponse,
   ISaveDataRequest,
   ISaveDataResponse
-} from '../../data/dataContracts';
+} from '@data/dataContracts';
 
 import {
   IPetOwnershipDataModel,
   PetOwnershipDataService
-} from '../../data/petOwnershipDataService';
+} from '@data/petOwnershipDataService';
 
 import {
   IPetOwnershipModel,
   PetOwnershipService
-} from '../petOwnershipService';
+} from '@services/petOwnershipService';
 
 import {
   IGetRequest,
   IGetResponse,
   ISaveRequest,
   ISaveResponse
-} from '../serviceContracts';
+} from '@services/serviceContracts';
 
 const registration = registry => {
   registry({

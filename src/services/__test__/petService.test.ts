@@ -4,18 +4,18 @@ import {
   IGetDataResponse,
   ISaveDataRequest,
   ISaveDataResponse
-} from '../../data/dataContracts';
+} from '@data/dataContracts';
 
-import { IPetDataModel, PetDataService } from '../../data/petDataService';
+import { IPetDataModel, PetDataService } from '@data/petDataService';
 
-import { IPetModel, PetService } from '../petService';
+import { IPetModel, PetService } from '@services/petService';
 
 import {
   IGetRequest,
   IGetResponse,
   ISaveRequest,
   ISaveResponse
-} from '../serviceContracts';
+} from '@services/serviceContracts';
 
 const registration = registry => {
   registry({

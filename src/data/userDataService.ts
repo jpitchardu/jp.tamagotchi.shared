@@ -1,4 +1,4 @@
-import { promisify } from '../utils/index';
+import { promisify } from '@utils/index';
 import {
   IGetDataRequest,
   IGetDataResponse,

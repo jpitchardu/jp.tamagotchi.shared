@@ -1,4 +1,4 @@
-import { UserDataService } from '../data/index';
+import { UserDataService } from '@data/index';
 
 import {
   IGetRequest,

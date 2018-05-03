@@ -1,10 +1,10 @@
 import * as scope from 'fndi';
 
-import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
+import { IGetDataResponse, ISaveDataResponse } from '@data/dataContracts';
 import {
   IPetOwnershipDataModel,
   PetOwnershipDataService
-} from '../petOwnershipDataService';
+} from '@data/petOwnershipDataService';
 
 const registration = registry => {
   registry({

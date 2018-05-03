@@ -3,7 +3,15 @@
     "outDir": "./dist",
     "allowJs": true,
     "target": "es2015",
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"],
+      "@data/*": ["data/*"],
+      "@config/*": ["config/*"]
+    }
   },
   "include": ["./src/**/*"]
 }

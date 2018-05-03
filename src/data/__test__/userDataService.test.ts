@@ -1,7 +1,7 @@
 import * as scope from 'fndi';
 
-import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
-import { IUserDataModel, UserDataService } from '../userDataService';
+import { IGetDataResponse, ISaveDataResponse } from '@data/dataContracts';
+import { IUserDataModel, UserDataService } from '@data/userDataService';
 
 const registration = registry => {
   registry({

@@ -1,7 +1,7 @@
 import * as scope from 'fndi';
 
-import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
-import { IPetDataModel, PetDataService } from '../petDataService';
+import { IGetDataResponse, ISaveDataResponse } from '@data/dataContracts';
+import { IPetDataModel, PetDataService } from '@data/petDataService';
 
 const registration = registry => {
   registry({

@@ -4,21 +4,21 @@ import {
   IGetDataResponse,
   ISaveDataRequest,
   ISaveDataResponse
-} from '../../data/dataContracts';
+} from '@data/dataContracts';
 
 import {
   ITransactionDataModel,
   TransactionDataService
-} from '../../data/transactionDataService';
+} from '@data/transactionDataService';
 
-import { ITransactionModel, TransactionService } from '../transactionService';
+import { ITransactionModel, TransactionService } from '@services/transactionService';
 
 import {
   IGetRequest,
   IGetResponse,
   ISaveRequest,
   ISaveResponse
-} from '../serviceContracts';
+} from '@services/serviceContracts';
 
 const registration = registry => {
   registry({

@@ -5,7 +5,7 @@ import { PetOwnershipDataService } from './petOwnershipDataService';
 import { TransactionDataService } from './transactionDataService';
 import { UserDataService } from './userDataService';
 
-import { promisify } from '../utils/index';
+import { promisify } from '@utils/index';
 
 function dataProtoPackageSelector(load, selector) {
   return selector(load.jp.tamagotchi.data.services);

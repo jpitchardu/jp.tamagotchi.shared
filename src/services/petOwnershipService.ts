@@ -1,4 +1,4 @@
-import { PetOwnershipDataService } from '../data/index';
+import { PetOwnershipDataService } from '@data/index';
 
 import {
   IGetRequest,

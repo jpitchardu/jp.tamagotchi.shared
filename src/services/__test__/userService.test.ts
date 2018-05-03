@@ -4,18 +4,18 @@ import {
   IGetDataResponse,
   ISaveDataRequest,
   ISaveDataResponse
-} from '../../data/dataContracts';
+} from '@data/dataContracts';
 
-import { IUserDataModel, UserDataService } from '../../data/userDataService';
+import { IUserDataModel, UserDataService } from '@data/userDataService';
 
-import { IUserModel, UserService } from '../userService';
+import { IUserModel, UserService } from '@services/userService';
 
 import {
   IGetRequest,
   IGetResponse,
   ISaveRequest,
   ISaveResponse
-} from '../serviceContracts';
+} from '@services/serviceContracts';
 
 const registration = registry => {
   registry({
