@@ -1,21 +1,21 @@
 import * as scope from 'fndi';
 
-import { IGetResponse, ISaveResponse } from '../dataContracts';
-import { IUserModel, UserDataService } from '../userDataService';
+import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
+import { IUserDataModel, UserDataService } from '../userDataService';
 
 const registration = registry => {
   registry({
     name: 'userDataClient',
     value: {
       getUsers: jest.fn().mockReturnValue(
-        Promise.resolve<IGetResponse<IUserModel>>({
+        Promise.resolve<IGetDataResponse<IUserDataModel>>({
           data: [],
           message: '',
           successful: true
         })
       ),
       saveUser: jest.fn().mockImplementation(({ data }) =>
-        Promise.resolve<ISaveResponse<IUserModel>>({
+        Promise.resolve<ISaveDataResponse<IUserDataModel>>({
           data,
           message: 'User Saved',
           successful: true
@@ -39,7 +39,7 @@ describe(
     });
 
     describe('When asked to saveUser', () => {
-      let result: ISaveResponse<IUserModel>;
+      let result: ISaveDataResponse<IUserDataModel>;
 
       beforeAll(async () => {
         result = await sut.saveUser({
@@ -61,7 +61,7 @@ describe(
     });
 
     describe('When asked to getUsers', () => {
-      let result: IGetResponse<IUserModel>;
+      let result: IGetDataResponse<IUserDataModel>;
 
       beforeAll(async () => {
         result = await sut.getUsers({

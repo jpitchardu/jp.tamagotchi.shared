@@ -1,8 +1,8 @@
 import * as scope from 'fndi';
 
-import { IGetResponse, ISaveResponse } from '../dataContracts';
+import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
 import {
-  ITransactionModel,
+  ITransactionDataModel,
   TransactionDataService
 } from '../transactionDataService';
 
@@ -11,14 +11,14 @@ const registration = registry => {
     name: 'transactionDataClient',
     value: {
       getTransactions: jest.fn().mockReturnValue(
-        Promise.resolve<IGetResponse<ITransactionModel>>({
+        Promise.resolve<IGetDataResponse<ITransactionDataModel>>({
           data: [],
           message: '',
           successful: true
         })
       ),
       saveTransaction: jest.fn().mockImplementation(({ data }) =>
-        Promise.resolve<ISaveResponse<ITransactionModel>>({
+        Promise.resolve<ISaveDataResponse<ITransactionDataModel>>({
           data,
           message: 'Transaction Saved',
           successful: true
@@ -42,7 +42,7 @@ describe(
     });
 
     describe('When asked to saveTransaction', () => {
-      let result: ISaveResponse<ITransactionModel>;
+      let result: ISaveDataResponse<ITransactionDataModel>;
 
       beforeAll(async () => {
         result = await sut.saveTransaction({
@@ -62,7 +62,7 @@ describe(
     });
 
     describe('When asked to getTransactions', () => {
-      let result: IGetResponse<ITransactionModel>;
+      let result: IGetDataResponse<ITransactionDataModel>;
 
       beforeAll(async () => {
         result = await sut.getTransactions({

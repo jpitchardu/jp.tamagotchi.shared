@@ -1,21 +1,21 @@
 import * as scope from 'fndi';
 
-import { IGetResponse, ISaveResponse } from '../dataContracts';
-import { IPetModel, PetDataService } from '../petDataService';
+import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
+import { IPetDataModel, PetDataService } from '../petDataService';
 
 const registration = registry => {
   registry({
     name: 'petDataClient',
     value: {
       getPets: jest.fn().mockReturnValue(
-        Promise.resolve<IGetResponse<IPetModel>>({
+        Promise.resolve<IGetDataResponse<IPetDataModel>>({
           data: [],
           message: '',
           successful: true
         })
       ),
       savePet: jest.fn().mockImplementation(({ data }) =>
-        Promise.resolve<ISaveResponse<IPetModel>>({
+        Promise.resolve<ISaveDataResponse<IPetDataModel>>({
           data,
           message: 'Pet Saved',
           successful: true
@@ -39,7 +39,7 @@ describe(
     });
 
     describe('When asked to savePet', () => {
-      let result: ISaveResponse<IPetModel>;
+      let result: ISaveDataResponse<IPetDataModel>;
 
       beforeAll(async () => {
         result = await sut.savePet({
@@ -62,7 +62,7 @@ describe(
     });
 
     describe('When asked to getPets', () => {
-      let result: IGetResponse<IPetModel>;
+      let result: IGetDataResponse<IPetDataModel>;
 
       beforeAll(async () => {
         result = await sut.getPets({

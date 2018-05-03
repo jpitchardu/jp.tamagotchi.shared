@@ -1,42 +1,34 @@
 import { PetDataService } from '../data/index';
 
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './serviceContracts';
+
 export class PetService {
-  constructor(private readonly dataService: PetDataService) {}
+  constructor(private readonly petDataService: PetDataService) {}
 
-  public savePet(request: ISavePetRequest): Promise<ISavePetResponse> {
-    return this.dataService
+  public savePet(
+    request: ISaveRequest<IPetModel>
+  ): Promise<ISaveResponse<IPetModel>> {
+    return this.petDataService
       .savePet(request)
-      .then(res => res as ISavePetResponse);
+      .then(res => res);
   }
 
-  public getPets(request: IGetPetsRequest): Promise<IGetPetsResponse> {
-    return this.dataService
+  public getPets(
+    request: IGetRequest<IPetModel>
+  ): Promise<IGetResponse<IPetModel>> {
+    return this.petDataService
       .getPets(request)
-      .then(res => res as IGetPetsResponse);
+      .then(res => res);
   }
-}
-
-export interface ISavePetRequest {
-  pet: IPetModel;
-}
-
-export interface ISavePetResponse {
-  successful: boolean;
-  message: string;
-  pet: IPetModel;
-}
-
-export interface IGetPetsRequest {
-  size: number;
-  example: IPetModel;
-}
-
-export interface IGetPetsResponse {
-  pets: IPetModel[];
 }
 
 export interface IPetModel {
-  id: number;
+  id?: number;
   image: string;
   name: string;
   description: string;

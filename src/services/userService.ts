@@ -1,42 +1,34 @@
 import { UserDataService } from '../data/index';
 
+import {
+  IGetRequest,
+  IGetResponse,
+  ISaveRequest,
+  ISaveResponse
+} from './serviceContracts';
+
 export class UserService {
-  constructor(private readonly dataService: UserDataService) {}
+  constructor(private readonly userDataService: UserDataService) {}
 
-  public saveUser(request: ISaveUserRequest): Promise<ISaveUserResponse> {
-    return this.dataService
+  public saveUser(
+    request: ISaveRequest<IUserModel>
+  ): Promise<ISaveResponse<IUserModel>> {
+    return this.userDataService
       .saveUser(request)
-      .then(res => res as ISaveUserResponse);
+      .then(res => res as ISaveResponse<IUserModel>);
   }
 
-  public getUsers(request: IGetUsersRequest): Promise<IGetUsersResponse> {
-    return this.dataService
+  public getUsers(
+    request: IGetRequest<IUserModel>
+  ): Promise<IGetResponse<IUserModel>> {
+    return this.userDataService
       .getUsers(request)
-      .then(res => res as IGetUsersResponse);
+      .then(res => res as IGetResponse<IUserModel>);
   }
-}
-
-export interface ISaveUserRequest {
-  User: IUserModel;
-}
-
-export interface ISaveUserResponse {
-  successful: boolean;
-  message: string;
-  User: IUserModel;
-}
-
-export interface IGetUsersRequest {
-  size: number;
-  example: IUserModel;
-}
-
-export interface IGetUsersResponse {
-  Users: IUserModel[];
 }
 
 export interface IUserModel {
-  id: number;
+  id?: number;
   userName: string;
   password: string;
   email: string;

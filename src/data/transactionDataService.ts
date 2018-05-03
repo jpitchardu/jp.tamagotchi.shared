@@ -1,31 +1,31 @@
 import { promisify } from '../utils/index';
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse
+  IGetDataRequest,
+  IGetDataResponse,
+  ISaveDataRequest,
+  ISaveDataResponse
 } from './dataContracts';
 
 export class TransactionDataService {
   constructor(private readonly transactionDataClient) {}
 
   public saveTransaction(
-    request: ISaveRequest<ITransactionModel>
-  ): Promise<ISaveResponse<ITransactionModel>> {
+    request: ISaveDataRequest<ITransactionDataModel>
+  ): Promise<ISaveDataResponse<ITransactionDataModel>> {
     return this.transactionDataClient
       .saveTransaction(request)
-      .then(res => res as ISaveResponse<ITransactionModel>);
+      .then(res => res as ISaveDataResponse<ITransactionDataModel>);
   }
 
   public getTransactions(
-    request: IGetRequest<ITransactionModel>
-  ): Promise<IGetResponse<ITransactionModel>> {
+    request: IGetDataRequest<ITransactionDataModel>
+  ): Promise<IGetDataResponse<ITransactionDataModel>> {
     return this.transactionDataClient
       .getTransactions(request)
-      .then(res => res as IGetResponse<ITransactionModel>);
+      .then(res => res as IGetDataResponse<ITransactionDataModel>);
   }
 }
 
-export interface ITransactionModel {
+export interface ITransactionDataModel {
   id?: number;
 }

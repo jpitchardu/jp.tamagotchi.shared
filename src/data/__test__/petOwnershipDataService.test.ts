@@ -1,8 +1,8 @@
 import * as scope from 'fndi';
 
-import { IGetResponse, ISaveResponse } from '../dataContracts';
+import { IGetDataResponse, ISaveDataResponse } from '../dataContracts';
 import {
-  IPetOwnershipModel,
+  IPetOwnershipDataModel,
   PetOwnershipDataService
 } from '../petOwnershipDataService';
 
@@ -11,14 +11,14 @@ const registration = registry => {
     name: 'petOwnershipDataClient',
     value: {
       getPetOwnerships: jest.fn().mockReturnValue(
-        Promise.resolve<IGetResponse<IPetOwnershipModel>>({
+        Promise.resolve<IGetDataResponse<IPetOwnershipDataModel>>({
           data: [],
           message: '',
           successful: true
         })
       ),
       savePetOwnership: jest.fn().mockImplementation(({ data }) =>
-        Promise.resolve<ISaveResponse<IPetOwnershipModel>>({
+        Promise.resolve<ISaveDataResponse<IPetOwnershipDataModel>>({
           data,
           message: 'Pet Saved',
           successful: true
@@ -42,7 +42,7 @@ describe(
     });
 
     describe('When asked to savePetOwnership', () => {
-      let result: ISaveResponse<IPetOwnershipModel>;
+      let result: ISaveDataResponse<IPetOwnershipDataModel>;
 
       beforeAll(async () => {
         result = await sut.savePetOwnership({
@@ -62,7 +62,7 @@ describe(
     });
 
     describe('When asked to getPetOwnerships', () => {
-      let result: IGetResponse<IPetOwnershipModel>;
+      let result: IGetDataResponse<IPetOwnershipDataModel>;
 
       beforeAll(async () => {
         result = await sut.getPetOwnerships({

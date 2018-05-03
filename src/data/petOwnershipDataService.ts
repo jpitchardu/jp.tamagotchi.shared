@@ -1,31 +1,31 @@
 import { promisify } from '../utils/index';
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse
+  IGetDataRequest,
+  IGetDataResponse,
+  ISaveDataRequest,
+  ISaveDataResponse
 } from './dataContracts';
 
 export class PetOwnershipDataService {
   constructor(private readonly petOwnershipDataClient) {}
 
   public savePetOwnership(
-    request: ISaveRequest<IPetOwnershipModel>
-  ): Promise<ISaveResponse<IPetOwnershipModel>> {
+    request: ISaveDataRequest<IPetOwnershipDataModel>
+  ): Promise<ISaveDataResponse<IPetOwnershipDataModel>> {
     return this.petOwnershipDataClient
       .savePetOwnership(request)
-      .then(res => res as ISaveResponse<IPetOwnershipModel>);
+      .then(res => res as ISaveDataResponse<IPetOwnershipDataModel>);
   }
 
   public getPetOwnerships(
-    request: IGetRequest<IPetOwnershipModel>
-  ): Promise<IGetResponse<IPetOwnershipModel>> {
+    request: IGetDataRequest<IPetOwnershipDataModel>
+  ): Promise<IGetDataResponse<IPetOwnershipDataModel>> {
     return this.petOwnershipDataClient
       .getPetOwnerships(request)
-      .then(res => res as IGetResponse<IPetOwnershipModel>);
+      .then(res => res as IGetDataResponse<IPetOwnershipDataModel>);
   }
 }
 
-export interface IPetOwnershipModel {
+export interface IPetOwnershipDataModel {
   id?: number;
 }

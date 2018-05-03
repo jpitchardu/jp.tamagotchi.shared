@@ -1,19 +1,19 @@
-export interface ISaveDataRequest<T> {
+export interface ISaveRequest<T> {
   data: T;
 }
 
-export interface ISaveDataResponse<T> {
+export interface ISaveResponse<T> {
   successful: boolean;
   message: string;
   data: T;
 }
 
-export interface IGetDataRequest<T> {
+export interface IGetRequest<T> {
   size: number;
   example?: T;
 }
 
-export interface IGetDataResponse<T> {
+export interface IGetResponse<T> {
   successful: boolean;
   message: string;
   data: T[];

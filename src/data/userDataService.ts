@@ -1,32 +1,32 @@
 import { promisify } from '../utils/index';
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse
+  IGetDataRequest,
+  IGetDataResponse,
+  ISaveDataRequest,
+  ISaveDataResponse
 } from './dataContracts';
 
 export class UserDataService {
   constructor(private readonly userDataClient) {}
 
   public saveUser(
-    request: ISaveRequest<IUserModel>
-  ): Promise<ISaveResponse<IUserModel>> {
+    request: ISaveDataRequest<IUserDataModel>
+  ): Promise<ISaveDataResponse<IUserDataModel>> {
     return this.userDataClient
       .saveUser(request)
-      .then(res => res as ISaveResponse<IUserModel>);
+      .then(res => res as ISaveDataResponse<IUserDataModel>);
   }
 
   public getUsers(
-    request: IGetRequest<IUserModel>
-  ): Promise<IGetResponse<IUserModel>> {
+    request: IGetDataRequest<IUserDataModel>
+  ): Promise<IGetDataResponse<IUserDataModel>> {
     return this.userDataClient
       .getUsers(request)
-      .then(res => res as IGetResponse<IUserModel>);
+      .then(res => res as IGetDataResponse<IUserDataModel>);
   }
 }
 
-export interface IUserModel {
+export interface IUserDataModel {
   id?: number;
   userName: string;
   password: string;
