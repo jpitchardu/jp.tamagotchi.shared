@@ -6,7 +6,7 @@
   "author": "<j.pichardo@tuta.io>",
   "license": "MIT",
   "scripts": {
-    "format": "prettier --write {,**}/*.{ts,css}",
+    "format": "prettier --write 'src{,/**}/*.{ts,css}'",
     "lint": "tslint 'src/**/*.ts'",
     "test": "jest",
     "build": "webpack",

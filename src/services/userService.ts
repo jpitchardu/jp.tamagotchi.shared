@@ -22,17 +22,13 @@ export class UserService {
   public saveUser(
     request: SaveRequest<UserModel>
   ): Promise<SaveResponse<UserModel>> {
-    return this.makeRequest(request, req =>
-      this.userDataService.saveUser(req)
-    );
+    return this.makeRequest(request, req => this.userDataService.saveUser(req));
   }
 
   public getUsers(
     request: GetRequest<UserModel>
   ): Promise<GetResponse<UserModel>> {
-    return this.makeRequest(request, req =>
-      this.userDataService.getUsers(req)
-    );
+    return this.makeRequest(request, req => this.userDataService.getUsers(req));
   }
 
   private makeRequest<TReq extends object, TRes extends IDataResponse>(
@@ -47,7 +43,6 @@ export class UserService {
 }
 
 export class UserModel {
-
   public id?: number;
 
   @MinLength(7, { message: 'Username is invalid' })

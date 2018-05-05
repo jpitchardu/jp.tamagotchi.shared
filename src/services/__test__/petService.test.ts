@@ -1,13 +1,22 @@
 import * as scope from 'fndi';
 
-import {IGetDataResponse, ISaveDataRequest, ISaveDataResponse} from '../../data/dataContracts';
-import {IPetDataModel, PetDataService} from '../../data/petDataService';
-import {PetModel, PetService} from '../petService';
-import {GetRequest, GetResponse, SaveRequest, SaveResponse} from '../serviceContracts';
+import {
+  IGetDataResponse,
+  ISaveDataRequest,
+  ISaveDataResponse
+} from '../../data/dataContracts';
+import { IPetDataModel, PetDataService } from '../../data/petDataService';
+import { PetModel, PetService } from '../petService';
+import {
+  GetRequest,
+  GetResponse,
+  SaveRequest,
+  SaveResponse
+} from '../serviceContracts';
 
 describe('Given a PetService', () => {
   const sutRegistration = registry => {
-    registry({type: PetService});
+    registry({ type: PetService });
   };
 
   describe('When asked to SavePet', () => {
@@ -20,13 +29,15 @@ describe('Given a PetService', () => {
       let result;
 
       const validateRegistration = registry => {
-        registry({name: 'validate', value: jest.fn().mockRejectedValue({})});
+        registry({ name: 'validate', value: jest.fn().mockRejectedValue({}) });
       };
 
-      beforeAll(scope(
+      beforeAll(
+        scope(
           registry => {
-            sutRegistration(registry), validateRegistration(registry),
-                registry({type: PetDataService, value: {}});
+            sutRegistration(registry),
+              validateRegistration(registry),
+              registry({ type: PetDataService, value: {} });
           },
           async resolve => {
             sut = resolve(PetService);
@@ -43,7 +54,9 @@ describe('Given a PetService', () => {
               }
             };
             result = await sut.savePet(request);
-          }));
+          }
+        )
+      );
 
       test('Result should be unsuccessful', () => {
         expect(result.successful).toBe(false);
@@ -56,7 +69,7 @@ describe('Given a PetService', () => {
 
     describe('And Request is valid', () => {
       const validateRegistration = registry => {
-        registry({name: 'validate', value: jest.fn().mockResolvedValue({})});
+        registry({ name: 'validate', value: jest.fn().mockResolvedValue({}) });
       };
 
       describe('And PetDataService::getPets runs correctly ', () => {
@@ -80,7 +93,8 @@ describe('Given a PetService', () => {
           });
         };
 
-        beforeAll(scope(
+        beforeAll(
+          scope(
             registry => {
               sutRegistration(registry);
               validateRegistration(registry);
@@ -100,7 +114,9 @@ describe('Given a PetService', () => {
                 }
               };
               result = await sut.savePet(request);
-            }));
+            }
+          )
+        );
         test('result should be successful', () => {
           expect(result.successful).toBe(true);
         });
@@ -109,12 +125,10 @@ describe('Given a PetService', () => {
           expect(validateMock).toHaveBeenCalledWith(request);
         });
 
-        test(
-            'it should have called PetDataService::savePet with correct request',
-            () => {
-              expect(petDataServiceFake.savePet).toHaveBeenCalledWith(request);
-              expect(petDataServiceFake.savePet).toHaveBeenCalledTimes(1);
-            });
+        test('it should have called PetDataService::savePet with correct request', () => {
+          expect(petDataServiceFake.savePet).toHaveBeenCalledWith(request);
+          expect(petDataServiceFake.savePet).toHaveBeenCalledTimes(1);
+        });
       });
 
       describe('And PetDataService::savePet fails ', () => {
@@ -138,7 +152,8 @@ describe('Given a PetService', () => {
           });
         };
 
-        beforeAll(scope(
+        beforeAll(
+          scope(
             registry => {
               sutRegistration(registry);
               validateRegistration(registry);
@@ -158,7 +173,9 @@ describe('Given a PetService', () => {
                 }
               };
               result = await sut.savePet(request);
-            }));
+            }
+          )
+        );
 
         test('result should be unsuccessful', () => {
           expect(result.successful).toBe(false);
@@ -168,12 +185,10 @@ describe('Given a PetService', () => {
           expect(validateMock).toHaveBeenCalledWith(request);
         });
 
-        test(
-            'it should have called PetDataService::savePet with correct request',
-            () => {
-              expect(petDataServiceFake.savePet).toHaveBeenCalledWith(request);
-              expect(petDataServiceFake.savePet).toHaveBeenCalledTimes(1);
-            });
+        test('it should have called PetDataService::savePet with correct request', () => {
+          expect(petDataServiceFake.savePet).toHaveBeenCalledWith(request);
+          expect(petDataServiceFake.savePet).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });
@@ -187,13 +202,15 @@ describe('Given a PetService', () => {
       let request;
       let result;
       const validateRegistration = registry => {
-        registry({name: 'validate', value: jest.fn().mockRejectedValue({})});
+        registry({ name: 'validate', value: jest.fn().mockRejectedValue({}) });
       };
 
-      beforeAll(scope(
+      beforeAll(
+        scope(
           registry => {
-            sutRegistration(registry), validateRegistration(registry),
-                registry({type: PetDataService, value: {}});
+            sutRegistration(registry),
+              validateRegistration(registry),
+              registry({ type: PetDataService, value: {} });
           },
           async resolve => {
             sut = resolve(PetService);
@@ -201,9 +218,11 @@ describe('Given a PetService', () => {
             validateMock = resolve('validate');
             petDataServiceFake = resolve(PetDataService);
 
-            request = {size: 0};
+            request = { size: 0 };
             result = await sut.getPets(request);
-          }));
+          }
+        )
+      );
 
       test('Result should be unsuccessful', () => {
         expect(result.successful).toBe(false);
@@ -216,7 +235,7 @@ describe('Given a PetService', () => {
 
     describe('And Request is valid', () => {
       const validateRegistration = registry => {
-        registry({name: 'validate', value: jest.fn().mockResolvedValue({})});
+        registry({ name: 'validate', value: jest.fn().mockResolvedValue({}) });
       };
 
       describe('And PetDataService::getPets runs correctly ', () => {
@@ -231,13 +250,15 @@ describe('Given a PetService', () => {
           registry({
             type: PetDataService,
             value: {
-              getPets: jest.fn().mockResolvedValue(
-                  {data: [], message: '', successful: true})
+              getPets: jest
+                .fn()
+                .mockResolvedValue({ data: [], message: '', successful: true })
             }
           });
         };
 
-        beforeAll(scope(
+        beforeAll(
+          scope(
             registry => {
               sutRegistration(registry);
               validateRegistration(registry);
@@ -248,9 +269,11 @@ describe('Given a PetService', () => {
 
               validateMock = resolve('validate');
               petDataServiceFake = resolve(PetDataService);
-              request = {size: 1};
+              request = { size: 1 };
               result = await sut.getPets(request);
-            }));
+            }
+          )
+        );
 
         test('result should be successful', () => {
           expect(result.successful).toBe(true);
@@ -260,12 +283,10 @@ describe('Given a PetService', () => {
           expect(validateMock).toHaveBeenCalledWith(request);
         });
 
-        test(
-            'it should have called PetDataService::getPets with correct request',
-            () => {
-              expect(petDataServiceFake.getPets).toHaveBeenCalledWith(request);
-              expect(petDataServiceFake.getPets).toHaveBeenCalledTimes(1);
-            });
+        test('it should have called PetDataService::getPets with correct request', () => {
+          expect(petDataServiceFake.getPets).toHaveBeenCalledWith(request);
+          expect(petDataServiceFake.getPets).toHaveBeenCalledTimes(1);
+        });
       });
       describe('And PetDataService::getPets fails ', () => {
         let sut: PetService;
@@ -288,7 +309,8 @@ describe('Given a PetService', () => {
           });
         };
 
-        beforeAll(scope(
+        beforeAll(
+          scope(
             registry => {
               sutRegistration(registry);
               validateRegistration(registry);
@@ -300,10 +322,12 @@ describe('Given a PetService', () => {
               validateMock = resolve('validate');
               petDataServiceFake = resolve(PetDataService);
 
-              request = {size: 1};
+              request = { size: 1 };
 
               result = await sut.getPets(request);
-            }));
+            }
+          )
+        );
 
         test('result should be unsuccessful', () => {
           expect(result.successful).toBe(false);
@@ -313,12 +337,10 @@ describe('Given a PetService', () => {
           expect(validateMock).toHaveBeenCalledWith(request);
         });
 
-        test(
-            'it should have called PetDataService::getPets with correct request',
-            () => {
-              expect(petDataServiceFake.getPets).toHaveBeenCalledWith(request);
-              expect(petDataServiceFake.getPets).toHaveBeenCalledTimes(1);
-            });
+        test('it should have called PetDataService::getPets with correct request', () => {
+          expect(petDataServiceFake.getPets).toHaveBeenCalledWith(request);
+          expect(petDataServiceFake.getPets).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });

@@ -22,17 +22,13 @@ export class PetService {
   public savePet(
     request: SaveRequest<PetModel>
   ): Promise<SaveResponse<PetModel>> {
-    return this.makeRequest(request, req =>
-      this.petDataService.savePet(req)
-    );
+    return this.makeRequest(request, req => this.petDataService.savePet(req));
   }
 
   public getPets(
     request: GetRequest<PetModel>
   ): Promise<GetResponse<PetModel>> {
-    return this.makeRequest(request, req =>
-      this.petDataService.getPets(req)
-    );
+    return this.makeRequest(request, req => this.petDataService.getPets(req));
   }
 
   private makeRequest<TReq extends object, TRes extends IDataResponse>(

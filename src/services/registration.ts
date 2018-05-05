@@ -89,8 +89,7 @@ export function registration(registry) {
   serviceRegistration(registry);
 
   registry({
-    name:'validate',
+    name: 'validate',
     value: validate
-  })
-
+  });
 }
