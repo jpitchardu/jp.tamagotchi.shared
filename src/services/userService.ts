@@ -9,26 +9,40 @@ import {
   validateFn
 } from './serviceContracts';
 
+interface IDataResponse {
+  data: any;
+}
+
 export class UserService {
   constructor(
-    private readonly userDataService: UserDataService,
+    private readonly petOwnershipDataService: UserDataService,
     private readonly validate: validateFn
   ) {}
 
   public saveUser(
     request: ISaveRequest<UserModel>
   ): Promise<ISaveResponse<UserModel>> {
-    return this.validate(request)
-      .then(() => this.userDataService.saveUser(request))
-      .then(res => res as ISaveResponse<UserModel>);
+    return this.makeRequest(request, req =>
+      this.petOwnershipDataService.saveUser(req)
+    );
   }
 
   public getUsers(
     request: IGetRequest<UserModel>
   ): Promise<IGetResponse<UserModel>> {
+    return this.makeRequest(request, req =>
+      this.petOwnershipDataService.getUsers(req)
+    );
+  }
+
+  private makeRequest<TReq extends object, TRes extends IDataResponse>(
+    request: TReq,
+    fn: (t: TReq) => Promise<TRes>
+  ) {
     return this.validate(request)
-      .then(() => this.userDataService.getUsers(request))
-      .then(res => res as IGetResponse<UserModel>);
+      .then(() => fn(request))
+      .then(res => ({ successful: true, data: res.data, message: '' }))
+      .catch(err => ({ message: err.toString(), successful: false }));
   }
 }
 
