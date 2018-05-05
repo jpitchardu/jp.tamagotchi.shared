@@ -1,10 +1,8 @@
+import * as bunyan from 'bunyan';
 import { Server as GrpcServer } from 'grpc';
 
-import { Server } from './server';
-
-import { require } from './utils/index';
-
 import { registration as dataRegistration } from './data/index';
+import { Server } from './server';
 import {
   IServiceDefinition,
   PetOwnershipService,
@@ -14,12 +12,24 @@ import {
   UserService
 } from './services/index';
 
-export function registration(env) {
+export function registration(env = '') {
   return registry => {
-    registry({ name: 'config', value: require(`config/config.${env}`) });
+    registry({
+      name: 'config',
+      value: require(env ? `./config/config.${env}` : './config/config').config
+    });
 
     dataRegistration(registry);
     servicesRegistration(registry);
+
+    registry({
+      factory: resolve => bunyan.createLogger({ name: 'SharedBussinesLogger' }),
+      name: 'log'
+    });
+    registry({
+      factory: resolve => className => resolve('log').child({ className }),
+      name: 'logFactory'
+    });
 
     registry({
       factory: resolve => {
@@ -45,8 +55,9 @@ export function registration(env) {
         const grpcServer = new GrpcServer();
 
         const config = resolve('config');
+        const logFactory = resolve('logFactory');
 
-        return new Server(grpcServer, config, services);
+        return new Server(grpcServer, config, services, logFactory);
       },
       type: Server
     });

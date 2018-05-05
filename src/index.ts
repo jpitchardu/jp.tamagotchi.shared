@@ -4,10 +4,13 @@ import { registration } from './registry';
 import { Server } from './server';
 
 function main(resolve) {
-  const server = resolve(Server);
+  const log = resolve('log');
+  const server = resolve(Server) as Server;
 
-  server.start();
+  const result = server.start();
+
+  (result.successful ? log.info : log.fatal).bind(log)(result.message);
 }
 
-const scopedMain = scope(registration, main);
+const scopedMain = scope(registration(), main);
 scopedMain();

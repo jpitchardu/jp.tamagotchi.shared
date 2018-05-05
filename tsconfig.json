@@ -4,6 +4,7 @@
     "allowJs": true,
     "target": "es2015",
     "typeRoots": ["./node_modules/@types"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
@@ -11,7 +12,9 @@
       "@utils/*": ["utils/*"],
       "@data/*": ["data/*"],
       "@config/*": ["config/*"]
-    }
+    },
+    "experimentalDecorators": true
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["**/__test__/*"]
 }
