@@ -1,3 +1,4 @@
+import { validate } from 'class-validator';
 import * as grpc from 'grpc';
 
 import * as fs from 'fs';
@@ -86,4 +87,10 @@ function serviceRegistration(registry) {
 export function registration(registry) {
   protoRegistration(registry);
   serviceRegistration(registry);
+
+  registry({
+    name:'validate',
+    value: validate
+  })
+
 }

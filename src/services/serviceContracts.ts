@@ -1,3 +1,5 @@
+import { ValidationError, ValidatorOptions } from 'class-validator';
+
 export interface ISaveRequest<T> {
   data: T;
 }
@@ -18,3 +20,8 @@ export interface IGetResponse<T> {
   message: string;
   data: T[];
 }
+
+export type validateFn = (
+  object: object,
+  validatorOptions?: ValidatorOptions
+) => Promise<ValidationError[]>;

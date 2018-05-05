@@ -1,36 +1,32 @@
-import { PetDataService } from '@data/index';
+import {PetDataService} from '@data/index';
+import {Matches, MinLength} from 'class-validator';
 
-import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse
-} from './serviceContracts';
+import {IGetRequest, IGetResponse, ISaveRequest, ISaveResponse} from './serviceContracts';
 
 export class PetService {
   constructor(private readonly petDataService: PetDataService) {}
 
-  public savePet(
-    request: ISaveRequest<IPetModel>
-  ): Promise<ISaveResponse<IPetModel>> {
-    return this.petDataService
-      .savePet(request)
-      .then(res => res);
+  public savePet(request: ISaveRequest<PetModel>):
+      Promise<ISaveResponse<PetModel>> {
+    return this.petDataService.savePet(request).then(res => res);
   }
 
-  public getPets(
-    request: IGetRequest<IPetModel>
-  ): Promise<IGetResponse<IPetModel>> {
-    return this.petDataService
-      .getPets(request)
-      .then(res => res);
+  public getPets(request: IGetRequest<PetModel>):
+      Promise<IGetResponse<PetModel>> {
+    return this.petDataService.getPets(request).then(res => res);
   }
 }
 
-export interface IPetModel {
-  id?: number;
-  image: string;
-  name: string;
-  description: string;
-  package: string;
+export class PetModel {
+  public id?: number;
+  @Matches(
+      /^(?:\/[^\/#?]+)+\.(?:jpg|gif|png)$/,
+      {message: 'Image path is not valid'})
+  public image: string;
+  @MinLength(10) public name: string;
+  @MinLength(30) public description: string;
+  @Matches(
+      /^(?:\/[^\/#?]+)+\.(?:cs|jar|ts|js)$/,
+      {message: 'Package path is not valid'})
+  public package: string;
 }
