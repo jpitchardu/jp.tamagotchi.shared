@@ -14,7 +14,7 @@ interface IDataResponse {
 
 export class TransactionService {
   constructor(
-    private readonly petOwnershipDataService: TransactionDataService,
+    private readonly transactionDataService: TransactionDataService,
     private readonly validate: validateFn
   ) {}
 
@@ -22,7 +22,7 @@ export class TransactionService {
     request: SaveRequest<ITransactionModel>
   ): Promise<SaveResponse<ITransactionModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.saveTransaction(req)
+      this.transactionDataService.saveTransaction(req)
     );
   }
 
@@ -30,7 +30,7 @@ export class TransactionService {
     request: GetRequest<ITransactionModel>
   ): Promise<GetResponse<ITransactionModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.getTransactions(req)
+      this.transactionDataService.getTransactions(req)
     );
   }
 

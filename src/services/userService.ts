@@ -15,7 +15,7 @@ interface IDataResponse {
 
 export class UserService {
   constructor(
-    private readonly petOwnershipDataService: UserDataService,
+    private readonly userDataService: UserDataService,
     private readonly validate: validateFn
   ) {}
 
@@ -23,7 +23,7 @@ export class UserService {
     request: SaveRequest<UserModel>
   ): Promise<SaveResponse<UserModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.saveUser(req)
+      this.userDataService.saveUser(req)
     );
   }
 
@@ -31,7 +31,7 @@ export class UserService {
     request: GetRequest<UserModel>
   ): Promise<GetResponse<UserModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.getUsers(req)
+      this.userDataService.getUsers(req)
     );
   }
 

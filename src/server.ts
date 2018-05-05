@@ -17,7 +17,7 @@ export class Server {
     logFactory: (className: string) => any
   ) {
     this.services.forEach(service =>
-      this.server.addService(service.service, service.implementation)
+      this.grpcServer.addService(service.service, service.implementation)
     );
 
     this.logger = logFactory('Server');
