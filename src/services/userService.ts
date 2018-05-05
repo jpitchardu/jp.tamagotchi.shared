@@ -2,10 +2,10 @@ import { UserDataService } from '@data/index';
 import { Matches, MinLength } from 'class-validator';
 
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse,
+  GetRequest,
+  GetResponse,
+  SaveRequest,
+  SaveResponse,
   validateFn
 } from './serviceContracts';
 
@@ -20,16 +20,16 @@ export class UserService {
   ) {}
 
   public saveUser(
-    request: ISaveRequest<UserModel>
-  ): Promise<ISaveResponse<UserModel>> {
+    request: SaveRequest<UserModel>
+  ): Promise<SaveResponse<UserModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.saveUser(req)
     );
   }
 
   public getUsers(
-    request: IGetRequest<UserModel>
-  ): Promise<IGetResponse<UserModel>> {
+    request: GetRequest<UserModel>
+  ): Promise<GetResponse<UserModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.getUsers(req)
     );

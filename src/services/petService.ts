@@ -2,10 +2,10 @@ import { PetDataService } from '@data/index';
 import { Matches, MinLength } from 'class-validator';
 
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse,
+  GetRequest,
+  GetResponse,
+  SaveRequest,
+  SaveResponse,
   validateFn
 } from './serviceContracts';
 
@@ -15,23 +15,23 @@ interface IDataResponse {
 
 export class PetService {
   constructor(
-    private readonly petOwnershipDataService: PetDataService,
+    private readonly petDataService: PetDataService,
     private readonly validate: validateFn
   ) {}
 
   public savePet(
-    request: ISaveRequest<PetModel>
-  ): Promise<ISaveResponse<PetModel>> {
+    request: SaveRequest<PetModel>
+  ): Promise<SaveResponse<PetModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.savePet(req)
+      this.petDataService.savePet(req)
     );
   }
 
   public getPets(
-    request: IGetRequest<PetModel>
-  ): Promise<IGetResponse<PetModel>> {
+    request: GetRequest<PetModel>
+  ): Promise<GetResponse<PetModel>> {
     return this.makeRequest(request, req =>
-      this.petOwnershipDataService.getPets(req)
+      this.petDataService.getPets(req)
     );
   }
 

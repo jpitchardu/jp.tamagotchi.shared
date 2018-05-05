@@ -1,10 +1,10 @@
 import { PetOwnershipDataService } from '@data/index';
 
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse,
+  GetRequest,
+  GetResponse,
+  SaveRequest,
+  SaveResponse,
   validateFn
 } from './serviceContracts';
 
@@ -19,16 +19,16 @@ export class PetOwnershipService {
   ) {}
 
   public savePetOwnership(
-    request: ISaveRequest<IPetOwnershipModel>
-  ): Promise<ISaveResponse<IPetOwnershipModel>> {
+    request: SaveRequest<IPetOwnershipModel>
+  ): Promise<SaveResponse<IPetOwnershipModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.savePetOwnership(req)
     );
   }
 
   public getPetOwnerships(
-    request: IGetRequest<IPetOwnershipModel>
-  ): Promise<IGetResponse<IPetOwnershipModel>> {
+    request: GetRequest<IPetOwnershipModel>
+  ): Promise<GetResponse<IPetOwnershipModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.getPetOwnerships(req)
     );

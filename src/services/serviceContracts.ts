@@ -1,24 +1,25 @@
-import { ValidationError, ValidatorOptions } from 'class-validator';
+import { Min, ValidationError, ValidatorOptions } from 'class-validator';
 
-export interface ISaveRequest<T> {
-  data: T;
+export class SaveRequest<T> {
+  public data: T;
 }
 
-export interface ISaveResponse<T> {
-  successful: boolean;
-  message: string;
-  data?: T;
+export class SaveResponse<T> {
+  public successful: boolean;
+  public message: string;
+  public data?: T;
 }
 
-export interface IGetRequest<T> {
-  size: number;
-  example?: T;
+export class GetRequest<T> {
+  @Min(1)
+  public size: number;
+  public example?: T;
 }
 
-export interface IGetResponse<T> {
-  successful: boolean;
-  message: string;
-  data?: T[];
+export class GetResponse<T> {
+  public successful: boolean;
+  public message: string;
+  public data?: T[];
 }
 
 export type validateFn = (

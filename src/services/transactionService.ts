@@ -1,10 +1,10 @@
 import { TransactionDataService } from '@data/index';
 
 import {
-  IGetRequest,
-  IGetResponse,
-  ISaveRequest,
-  ISaveResponse,
+  GetRequest,
+  GetResponse,
+  SaveRequest,
+  SaveResponse,
   validateFn
 } from './serviceContracts';
 
@@ -19,16 +19,16 @@ export class TransactionService {
   ) {}
 
   public saveTransaction(
-    request: ISaveRequest<ITransactionModel>
-  ): Promise<ISaveResponse<ITransactionModel>> {
+    request: SaveRequest<ITransactionModel>
+  ): Promise<SaveResponse<ITransactionModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.saveTransaction(req)
     );
   }
 
   public getTransactions(
-    request: IGetRequest<ITransactionModel>
-  ): Promise<IGetResponse<ITransactionModel>> {
+    request: GetRequest<ITransactionModel>
+  ): Promise<GetResponse<ITransactionModel>> {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.getTransactions(req)
     );
