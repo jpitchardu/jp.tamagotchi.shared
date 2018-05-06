@@ -1,4 +1,5 @@
 import { PetOwnershipDataService } from '@data/index';
+import { SharedService } from '@services/sharedService';
 
 import {
   GetRequest,
@@ -8,15 +9,18 @@ import {
   validateFn
 } from './serviceContracts';
 
+
 interface IDataResponse {
   data: any;
 }
 
-export class PetOwnershipService {
+export class PetOwnershipService extends SharedService {
   constructor(
     private readonly petOwnershipDataService: PetOwnershipDataService,
-    private readonly validate: validateFn
-  ) {}
+    protected readonly validate: validateFn
+  ) {
+    super(validate);
+  }
 
   public savePetOwnership(
     request: SaveRequest<IPetOwnershipModel>
@@ -32,16 +36,6 @@ export class PetOwnershipService {
     return this.makeRequest(request, req =>
       this.petOwnershipDataService.getPetOwnerships(req)
     );
-  }
-
-  private makeRequest<TReq extends object, TRes extends IDataResponse>(
-    request: TReq,
-    fn: (t: TReq) => Promise<TRes>
-  ) {
-    return this.validate(request)
-      .then(() => fn(request))
-      .then(res => ({ successful: true, data: res.data, message: '' }))
-      .catch(err => ({ message: err.toString(), successful: false }));
   }
 }
 

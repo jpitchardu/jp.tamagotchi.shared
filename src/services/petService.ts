@@ -1,5 +1,7 @@
-import { PetDataService } from '@data/index';
 import { Matches, MinLength } from 'class-validator';
+
+import { PetDataService } from '@data/index';
+import { SharedService } from '@services/sharedService';
 
 import {
   GetRequest,
@@ -13,11 +15,13 @@ interface IDataResponse {
   data: any;
 }
 
-export class PetService {
+export class PetService extends SharedService {
   constructor(
     private readonly petDataService: PetDataService,
-    private readonly validate: validateFn
-  ) {}
+    protected readonly validate: validateFn
+  ) {
+    super(validate);
+  }
 
   public savePet(
     request: SaveRequest<PetModel>
@@ -29,16 +33,6 @@ export class PetService {
     request: GetRequest<PetModel>
   ): Promise<GetResponse<PetModel>> {
     return this.makeRequest(request, req => this.petDataService.getPets(req));
-  }
-
-  private makeRequest<TReq extends object, TRes extends IDataResponse>(
-    request: TReq,
-    fn: (t: TReq) => Promise<TRes>
-  ) {
-    return this.validate(request)
-      .then(() => fn(request))
-      .then(res => ({ successful: true, data: res.data, message: '' }))
-      .catch(err => ({ message: err.toString(), successful: false }));
   }
 }
 

@@ -1,4 +1,5 @@
 import { TransactionDataService } from '@data/index';
+import { SharedService } from '@services/sharedService';
 
 import {
   GetRequest,
@@ -12,11 +13,13 @@ interface IDataResponse {
   data: any;
 }
 
-export class TransactionService {
+export class TransactionService extends SharedService {
   constructor(
     private readonly transactionDataService: TransactionDataService,
-    private readonly validate: validateFn
-  ) {}
+    protected readonly validate: validateFn
+  ) {
+    super(validate);
+  }
 
   public saveTransaction(
     request: SaveRequest<ITransactionModel>
@@ -32,16 +35,6 @@ export class TransactionService {
     return this.makeRequest(request, req =>
       this.transactionDataService.getTransactions(req)
     );
-  }
-
-  private makeRequest<TReq extends object, TRes extends IDataResponse>(
-    request: TReq,
-    fn: (t: TReq) => Promise<TRes>
-  ) {
-    return this.validate(request)
-      .then(() => fn(request))
-      .then(res => ({ successful: true, data: res.data, message: '' }))
-      .catch(err => ({ message: err.toString(), successful: false }));
   }
 }
 
