@@ -14,6 +14,10 @@ interface IDataResponse {
 }
 
 export class TransactionService extends SharedService {
+  /**
+   * @param  {TransactionDataService} privatereadonlytransactionDataService
+   * @param  {validateFn} protectedreadonlyvalidate
+   */
   constructor(
     private readonly transactionDataService: TransactionDataService,
     protected readonly validate: validateFn
@@ -21,6 +25,10 @@ export class TransactionService extends SharedService {
     super(validate);
   }
 
+  /**
+   * @param  {SaveRequest<ITransactionModel>} request
+   * @returns {Promise<SaveResponse<ITransactionModel>>} response
+   */
   public saveTransaction(
     request: SaveRequest<ITransactionModel>
   ): Promise<SaveResponse<ITransactionModel>> {
@@ -29,6 +37,10 @@ export class TransactionService extends SharedService {
     );
   }
 
+  /**
+   * @param  {GetRequest<ITransactionModel>} request
+   * @returns {Promise<GetResponse<ITransactionModel>>} response
+   */
   public getTransactions(
     request: GetRequest<ITransactionModel>
   ): Promise<GetResponse<ITransactionModel>> {

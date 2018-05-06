@@ -12,7 +12,6 @@ import {
  * @author jpichardo
  */
 export class PetOwnershipDataService {
-  
   constructor(private readonly petOwnershipDataClient) {}
 
   /**

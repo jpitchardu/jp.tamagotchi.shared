@@ -15,7 +15,15 @@ interface IDataResponse {
   data: any;
 }
 
+/**
+ * @description PetOwnership GRPC Service implementation
+ * @author jpichardo
+ */
 export class PetService extends SharedService {
+  /**
+   * @param  {PetDataService} privatereadonlypetDataService
+   * @param  {validateFn} protectedreadonlyvalidate
+   */
   constructor(
     private readonly petDataService: PetDataService,
     protected readonly validate: validateFn
@@ -23,12 +31,20 @@ export class PetService extends SharedService {
     super(validate);
   }
 
+  /**
+   * @param  {SaveRequest<PetModel>} request
+   * @returns {Promise<SaveResponse<PetModel>>} response
+   */
   public savePet(
     request: SaveRequest<PetModel>
   ): Promise<SaveResponse<PetModel>> {
     return this.makeRequest(request, req => this.petDataService.savePet(req));
   }
 
+  /**
+   * @param  {GetRequest<PetModel>} request
+   * @returns {Promise<GetResponse<PetModel>>} response
+   */
   public getPets(
     request: GetRequest<PetModel>
   ): Promise<GetResponse<PetModel>> {

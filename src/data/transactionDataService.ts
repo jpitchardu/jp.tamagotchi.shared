@@ -12,7 +12,6 @@ import {
  * @author jpichardo
  */
 export class TransactionDataService {
-
   constructor(private readonly transactionDataClient) {}
 
   /**

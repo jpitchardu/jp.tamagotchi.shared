@@ -17,9 +17,8 @@ import {
  * @author jpichardo
  */
 export class UserDataService {
-  
   constructor(private readonly userDataClient) {}
-  
+
   /**
    * @param  {ISaveDataRequest<IUserDataModel>} request
    * @returns {Promise<ISaveDataResponse<IUserDataModel>>} The response from the data server

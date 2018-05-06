@@ -17,9 +17,8 @@ import {
  * @author jpichardo
  */
 export class PetDataService {
-  
   constructor(private readonly petDataClient) {}
-  
+
   /**
    * @param  {ISaveDataRequest<IPetDataModel>} request
    * @returns {Promise<ISaveDataResponse<IPetDataModel>>} The response from the service

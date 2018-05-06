@@ -1,7 +1,6 @@
-import { Matches, MinLength } from 'class-validator';
-
 import { UserDataService } from '@data/index';
 import { SharedService } from '@services/sharedService';
+import { Matches, MinLength } from 'class-validator';
 
 import {
   GetRequest,
@@ -16,6 +15,10 @@ interface IDataResponse {
 }
 
 export class UserService extends SharedService {
+  /**
+   * @param  {UserDataService} privatereadonlyuserDataService
+   * @param  {validateFn} protectedreadonlyvalidate
+   */
   constructor(
     private readonly userDataService: UserDataService,
     protected readonly validate: validateFn
@@ -23,12 +26,20 @@ export class UserService extends SharedService {
     super(validate);
   }
 
+  /**
+   * @param  {SaveRequest<UserModel>} request
+   * @returns {Promise<SaveResponse<UserModel>>} response
+   */
   public saveUser(
     request: SaveRequest<UserModel>
   ): Promise<SaveResponse<UserModel>> {
     return this.makeRequest(request, req => this.userDataService.saveUser(req));
   }
 
+  /**
+   * @param  {GetRequest<UserModel>} request
+   * @returns {Promise<GetResponse<UserModel>>} response
+   */
   public getUsers(
     request: GetRequest<UserModel>
   ): Promise<GetResponse<UserModel>> {
