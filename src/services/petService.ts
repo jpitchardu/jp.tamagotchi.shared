@@ -1,7 +1,6 @@
-import { Matches, MinLength } from 'class-validator';
-
 import { PetDataService } from '@data/index';
 import { SharedService } from '@services/sharedService';
+import { Matches, MinLength } from 'class-validator';
 
 import {
   GetRequest,
@@ -17,6 +16,7 @@ interface IDataResponse {
 
 /**
  * @description PetOwnership GRPC Service implementation
+ * @extends SharedService
  * @author jpichardo
  */
 export class PetService extends SharedService {

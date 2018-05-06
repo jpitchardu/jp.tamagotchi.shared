@@ -14,6 +14,11 @@ interface IDataResponse {
   data: any;
 }
 
+/**
+ * @description User GRPC Service implementation
+ * @extends SharedService
+ * @author jpichardo
+ */
 export class UserService extends SharedService {
   /**
    * @param  {UserDataService} privatereadonlyuserDataService

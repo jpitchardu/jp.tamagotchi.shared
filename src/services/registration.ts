@@ -1,18 +1,27 @@
 import { validate } from 'class-validator';
-import * as grpc from 'grpc';
-
 import * as fs from 'fs';
+import * as grpc from 'grpc';
 
 import { PetOwnershipService } from './petOwnershipService';
 import { PetService } from './petService';
 import { TransactionService } from './transactionService';
 import { UserService } from './userService';
 
+/**
+ * @param  {} load
+ * @param  {} selector
+ * @description helper function to avoid repeating package selection
+ */
 function businessProtoPackageSelector(load, selector) {
   return selector(load.jp.tamagotchi.business.shared.services);
 }
 
+/**
+ * @param  {} registry
+ * @description regisration for proto services
+ */
 function protoRegistration(registry) {
+
   registry({
     factory: resolve => {
       const config = resolve('config');
@@ -32,10 +41,12 @@ function protoRegistration(registry) {
       const config = resolve('config');
       const path = config.protoServicesPaths.petService;
 
-      return businessProtoPackageSelector(
+      const clientType = businessProtoPackageSelector(
         grpc.load(`${config.protoPath}/${path}`),
         protoPackage => protoPackage.pet
-      ).PetService.service;
+      ).PetService;
+
+      return new clientType();
     },
     name: 'sharedPetService'
   });
@@ -44,10 +55,12 @@ function protoRegistration(registry) {
       const config = resolve('config');
       const path = config.protoServicesPaths.petService;
 
-      return businessProtoPackageSelector(
+      const clientType =  businessProtoPackageSelector(
         grpc.load(`${config.protoPath}/${path}`),
         protoPackage => protoPackage.petOwnership
-      ).PetOwnershipService.service;
+      ).PetOwnershipService;
+
+      return new clientType();
     },
     name: 'sharedPetOwnershipService'
   });
@@ -56,10 +69,12 @@ function protoRegistration(registry) {
       const config = resolve('config');
       const path = config.protoServicesPaths.transactionService;
 
-      return businessProtoPackageSelector(
+      const clientType =  businessProtoPackageSelector(
         grpc.load(`${config.protoPath}/${path}`),
         protoPackage => protoPackage.transaction
-      ).TransactionService.service;
+      ).TransactionService;
+
+      return new clientType();
     },
     name: 'sharedTransactionService'
   });
@@ -68,15 +83,21 @@ function protoRegistration(registry) {
       const config = resolve('config');
       const path = config.protoServicesPaths.userService;
 
-      return businessProtoPackageSelector(
+      const clientType = businessProtoPackageSelector(
         grpc.load(`${config.protoPath}/${path}`),
         protoPackage => protoPackage.user
-      ).UserService.service;
+      ).UserService;
+
+      return new clientType();
     },
     name: 'sharedUserService'
   });
 }
 
+/**
+ * @param  {} registry
+ * @description regisration for services
+ */
 function serviceRegistration(registry) {
   registry({ type: PetService });
   registry({ type: PetOwnershipService });
@@ -84,12 +105,13 @@ function serviceRegistration(registry) {
   registry({ type: UserService });
 }
 
+/**
+ * @param  {} registry
+ * @description regisration for full services module
+ */
 export function registration(registry) {
   protoRegistration(registry);
   serviceRegistration(registry);
 
-  registry({
-    name: 'validate',
-    value: validate
-  });
+  registry({ name: 'validate', value: validate });
 }

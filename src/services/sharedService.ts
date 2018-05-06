@@ -10,9 +10,20 @@ interface IDataResponse {
   data: any;
 }
 
+/**
+ * @description Base service with shared behavior
+ * @author jpichardo
+ */
 export class SharedService {
+  /**
+   * @param  {validateFn} protectedreadonlyvalidate
+   */
   constructor(protected readonly validate: validateFn) {}
-
+  
+  /**
+   * @param  {TReq} request
+   * @param  {(t:TReq)=>Promise<TRes>} fn
+   */
   protected makeRequest<TReq extends object, TRes extends IDataResponse>(
     request: TReq,
     fn: (t: TReq) => Promise<TRes>

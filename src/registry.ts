@@ -12,16 +12,28 @@ import {
   UserService
 } from './services/index';
 
+
+/**
+ * @param  {} env
+ * @returns {(registry) => void} registration function
+ * @description regisration for full app
+ */
 export function registration(env = '') {
   return registry => {
+
+    // Register config file based on env
     registry({
       name: 'config',
       value: require(env ? `./config/config.${env}` : './config/config').config
     });
 
+    // Register data module
     dataRegistration(registry);
+
+    // Register services module
     servicesRegistration(registry);
 
+    // Register bunyan logger and logger factory to create child loggers based on class
     registry({
       factory: resolve => bunyan.createLogger({ name: 'SharedBussinesLogger' }),
       name: 'log'
@@ -31,6 +43,7 @@ export function registration(env = '') {
       name: 'logFactory'
     });
 
+    // Register Server instantiating logic
     registry({
       factory: resolve => {
         const services = [

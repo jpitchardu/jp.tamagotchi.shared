@@ -7,10 +7,19 @@ import { UserDataService } from './userDataService';
 
 import { promisify } from '@utils/index';
 
+/**
+ * @param  {} load
+ * @param  {} selector
+ * @description helper function to avoid repeating package selection
+ */
 function dataProtoPackageSelector(load, selector) {
   return selector(load.jp.tamagotchi.data.services);
 }
-
+/**
+ * @param  {} pathSelector
+ * @param  {} packageSelector
+ * @description helper function to avoid repeating config proto resolving logic
+ */
 function protoResolverFactory(pathSelector, packageSelector) {
   return config => {
     const dataServer = config.dataServer;
@@ -28,6 +37,10 @@ function protoResolverFactory(pathSelector, packageSelector) {
   };
 }
 
+/**
+ * @param  {} registry
+ * @description regisration for proto services
+ */
 function protoRegistration(registry) {
   registry({
     factory: resolve => {
@@ -78,7 +91,10 @@ function protoRegistration(registry) {
     name: 'userDataClient'
   });
 }
-
+/**
+ * @param  {} registry
+ * @description registration for data services
+ */
 function serviceRegistration(registry) {
   registry({
     type: PetDataService
@@ -93,7 +109,10 @@ function serviceRegistration(registry) {
     type: UserDataService
   });
 }
-
+/**
+ * @param  {} registry
+ * @description registration for full data module
+ */
 export function registration(registry) {
   protoRegistration(registry);
   serviceRegistration(registry);

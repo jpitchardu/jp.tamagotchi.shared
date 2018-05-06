@@ -13,6 +13,11 @@ interface IDataResponse {
   data: any;
 }
 
+/**
+ * @description Transaction GRPC Service implementation
+ * @extends SharedService
+ * @author jpichardo
+ */
 export class TransactionService extends SharedService {
   /**
    * @param  {TransactionDataService} privatereadonlytransactionDataService

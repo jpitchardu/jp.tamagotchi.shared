@@ -15,6 +15,7 @@ interface IDataResponse {
 
 /**
  * @description PetOwnership GRPC Service implementation
+ * @extends SharedService
  * @author jpichardo
  */
 export class PetOwnershipService extends SharedService {
