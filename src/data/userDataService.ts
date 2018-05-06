@@ -1,4 +1,10 @@
+/**
+ * @description User Client Service for Data Layer
+ * @author jpichardo
+ */
+
 import { promisify } from '@utils/index';
+
 import {
   IGetDataRequest,
   IGetDataResponse,
@@ -6,9 +12,18 @@ import {
   ISaveDataResponse
 } from './dataContracts';
 
+/**
+ * @description User Client Service for Data Layer
+ * @author jpichardo
+ */
 export class UserDataService {
+  
   constructor(private readonly userDataClient) {}
-
+  
+  /**
+   * @param  {ISaveDataRequest<IUserDataModel>} request
+   * @returns {Promise<ISaveDataResponse<IUserDataModel>>} The response from the data server
+   */
   public saveUser(
     request: ISaveDataRequest<IUserDataModel>
   ): Promise<ISaveDataResponse<IUserDataModel>> {
@@ -16,7 +31,10 @@ export class UserDataService {
       .saveUser(request)
       .then(res => res as ISaveDataResponse<IUserDataModel>);
   }
-
+  /**
+   * @param  {IGetDataRequest<IUserDataModel>} request
+   * @returns {Promise<IGetDataResponse<IUserDataModel>>} The response from the data server
+   */
   public getUsers(
     request: IGetDataRequest<IUserDataModel>
   ): Promise<IGetDataResponse<IUserDataModel>> {
