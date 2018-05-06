@@ -9,7 +9,6 @@ import {
   validateFn
 } from './serviceContracts';
 
-
 interface IDataResponse {
   data: any;
 }
